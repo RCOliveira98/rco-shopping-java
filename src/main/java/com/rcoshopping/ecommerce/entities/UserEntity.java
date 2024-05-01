@@ -1,14 +1,16 @@
 package com.rcoshopping.ecommerce.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_user")
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,9 @@ public class UserEntity implements Serializable {
     private String email;
     private String phone;
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    private List<OrderEntity> orders;
 
     public UserEntity() {}
 
@@ -67,6 +72,11 @@ public class UserEntity implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
 
     @Override
     public int hashCode() {
