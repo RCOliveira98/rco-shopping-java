@@ -18,6 +18,8 @@ public class UserEntity implements Serializable {
     private String phone;
     private String password;
 
+    public UserEntity() {}
+
     public UserEntity(Long id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
