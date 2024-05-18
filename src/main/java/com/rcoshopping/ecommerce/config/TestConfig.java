@@ -3,15 +3,20 @@ package com.rcoshopping.ecommerce.config;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.rcoshopping.ecommerce.entities.CategoryEntity;
 import com.rcoshopping.ecommerce.entities.OrderEntity;
 import com.rcoshopping.ecommerce.entities.UserEntity;
+
 import com.rcoshopping.ecommerce.enums.OrderStatus;
+
+import com.rcoshopping.ecommerce.repositories.CategoryRepository;
 import com.rcoshopping.ecommerce.repositories.OrderRepository;
 import com.rcoshopping.ecommerce.repositories.UserRepository;
 
@@ -22,6 +27,9 @@ public class TestConfig implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -34,5 +42,11 @@ public class TestConfig implements CommandLineRunner {
         OrderEntity order2 = new OrderEntity(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.PAID, userLast);
         OrderEntity order3 = new OrderEntity(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.DELIVERED, userFirst);
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+
+        CategoryEntity cat1 = new CategoryEntity(null, "Electronics");
+        CategoryEntity cat2 = new CategoryEntity(null, "Books");
+        CategoryEntity cat3 = new CategoryEntity(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
     }
 }
