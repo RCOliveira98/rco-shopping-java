@@ -57,6 +57,10 @@ public class OrderItemEntity {
         this.id.setProduct(product);
     }
 
+    public Double getSubTotal() {
+        return this.quantity * this.price;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

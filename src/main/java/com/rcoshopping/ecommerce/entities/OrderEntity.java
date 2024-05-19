@@ -84,7 +84,7 @@ public class OrderEntity {
         }
     }
 
-    public Set<OrderItemEntity> getItems() {
+    public Set<OrderItemEntity> getOrders() {
         return this.items;
     }
 
@@ -96,7 +96,13 @@ public class OrderEntity {
         this.payment = payment;
     }
 
-    
+    public Double getTotal() {
+        Double sum = 0.0;
+        for (OrderItemEntity orderItem : this.items) {
+            sum += orderItem.getSubTotal();
+        }
+        return sum;
+    }
 
     
 }

@@ -92,8 +92,12 @@ public class ProductEntity {
     }
 
     @JsonIgnore
-    public Set<OrderItemEntity> getItems() {
-        return this.items;
+    public Set<OrderEntity> getOrders() {
+        Set<OrderEntity> orders = new HashSet<>();
+        for(OrderItemEntity orderItem : this.items) {
+            orders.add(orderItem.getOrder());
+        }
+        return orders;
     }
 
     @Override
