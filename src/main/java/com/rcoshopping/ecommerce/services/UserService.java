@@ -27,4 +27,20 @@ public class UserService {
     public UserEntity insert(UserEntity userEntity) {
         return this.userRepository.save(userEntity);
     }
+
+    public void delete(Long id) {
+		this.userRepository.deleteById(id);
+	}
+
+    public UserEntity update(Long id, UserEntity obj) {
+		UserEntity entity = this.userRepository.getReferenceById(id);
+		updateData(entity, obj);
+		return userRepository.save(entity);
+	}
+
+	private void updateData(UserEntity entity, UserEntity obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+	}
 }
