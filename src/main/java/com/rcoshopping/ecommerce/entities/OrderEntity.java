@@ -7,6 +7,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rcoshopping.ecommerce.enums.OrderStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,6 +37,9 @@ public class OrderEntity {
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItemEntity> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private PaymentEntity payment;
 
     public OrderEntity() {}
 
@@ -82,6 +87,16 @@ public class OrderEntity {
     public Set<OrderItemEntity> getItems() {
         return this.items;
     }
+
+    public PaymentEntity getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentEntity payment) {
+        this.payment = payment;
+    }
+
+    
 
     
 }

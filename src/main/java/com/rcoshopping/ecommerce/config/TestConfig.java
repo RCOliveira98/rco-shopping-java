@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import com.rcoshopping.ecommerce.entities.CategoryEntity;
 import com.rcoshopping.ecommerce.entities.OrderEntity;
 import com.rcoshopping.ecommerce.entities.OrderItemEntity;
+import com.rcoshopping.ecommerce.entities.PaymentEntity;
 import com.rcoshopping.ecommerce.entities.ProductEntity;
 import com.rcoshopping.ecommerce.entities.UserEntity;
 
@@ -77,5 +78,9 @@ public class TestConfig implements CommandLineRunner {
         OrderItemEntity oi3 = new OrderItemEntity(order2, p3, 2, p3.getPrice());
         OrderItemEntity oi4 = new OrderItemEntity(order3, p5, 2, p5.getPrice());
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        PaymentEntity pay1 = new PaymentEntity(null, Instant.now(), order1);
+        order1.setPayment(pay1);
+        orderRepository.save(order1);
     }
 }
