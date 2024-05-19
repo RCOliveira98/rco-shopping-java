@@ -1,10 +1,10 @@
 package com.rcoshopping.ecommerce.entities;
 
 import java.time.Instant;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.rcoshopping.ecommerce.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +32,9 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private UserEntity client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItemEntity> items = new HashSet<>();
 
     public OrderEntity() {}
 
@@ -73,6 +77,10 @@ public class OrderEntity {
         if (orderStatus != null) {
             this.orderStatus = orderStatus.getOrderStatus();
         }
+    }
+
+    public Set<OrderItemEntity> getItems() {
+        return this.items;
     }
 
     

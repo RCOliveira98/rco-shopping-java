@@ -3,7 +3,6 @@ package com.rcoshopping.ecommerce.config;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,12 +11,14 @@ import org.springframework.context.annotation.Profile;
 
 import com.rcoshopping.ecommerce.entities.CategoryEntity;
 import com.rcoshopping.ecommerce.entities.OrderEntity;
+import com.rcoshopping.ecommerce.entities.OrderItemEntity;
 import com.rcoshopping.ecommerce.entities.ProductEntity;
 import com.rcoshopping.ecommerce.entities.UserEntity;
 
 import com.rcoshopping.ecommerce.enums.OrderStatus;
 
 import com.rcoshopping.ecommerce.repositories.CategoryRepository;
+import com.rcoshopping.ecommerce.repositories.OrderItemRepository;
 import com.rcoshopping.ecommerce.repositories.OrderRepository;
 import com.rcoshopping.ecommerce.repositories.ProductRepository;
 import com.rcoshopping.ecommerce.repositories.UserRepository;
@@ -27,6 +28,7 @@ import com.rcoshopping.ecommerce.repositories.UserRepository;
 public class TestConfig implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private OrderRepository orderRepository;
 
@@ -35,6 +37,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -66,5 +71,11 @@ public class TestConfig implements CommandLineRunner {
         p4.getCategories().add(cat3);
         p5.getCategories().add(cat1);
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+        OrderItemEntity oi1 = new OrderItemEntity(order1, p1, 2, p1.getPrice());
+        OrderItemEntity oi2 = new OrderItemEntity(order1, p3, 1, p3.getPrice());
+        OrderItemEntity oi3 = new OrderItemEntity(order2, p3, 2, p3.getPrice());
+        OrderItemEntity oi4 = new OrderItemEntity(order3, p5, 2, p5.getPrice());
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
