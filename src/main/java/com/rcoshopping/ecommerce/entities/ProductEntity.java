@@ -3,6 +3,8 @@ package com.rcoshopping.ecommerce.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +33,9 @@ public class ProductEntity {
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<CategoryEntity> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItemEntity> items = new HashSet<>();
 
     public ProductEntity() {}
 
@@ -83,6 +89,11 @@ public class ProductEntity {
 
     public Set<CategoryEntity> getCategories() {
         return this.categories;
+    }
+
+    @JsonIgnore
+    public Set<OrderItemEntity> getItems() {
+        return this.items;
     }
 
     @Override
