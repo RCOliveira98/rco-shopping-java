@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rcoshopping.ecommerce.entities.UserEntity;
 import com.rcoshopping.ecommerce.repositories.UserRepository;
+import com.rcoshopping.ecommerce.services.exceptions.ResourceNotFoundExceptionService;
 
 @Service
 public class UserService {
@@ -20,8 +21,8 @@ public class UserService {
     }
 
     public UserEntity findById(Long id) {
-        Optional<UserEntity> user = this.userRepository.findById(id);
-        return user.get();
+        Optional<UserEntity> obj = this.userRepository.findById(id);
+		return obj.orElseThrow(() -> new ResourceNotFoundExceptionService(id));
     }
 
     public UserEntity insert(UserEntity userEntity) {
